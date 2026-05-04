@@ -45,7 +45,7 @@ export default function JwtDecoderClient() {
       setHeader(JSON.stringify(decodedHeader, null, 2));
       setPayload(JSON.stringify(decodedPayload, null, 2));
       setErrorProps(null);
-    } catch (e: any) {
+    } catch {
       setHeader("");
       setPayload("");
       setErrorProps("Invalid JWT signature or format.");

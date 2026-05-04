@@ -10,7 +10,7 @@ import { Copy, CheckCircle2, Clock } from "lucide-react";
 import { toast } from "sonner";
 
 export default function TimestampClient() {
-  const [currentTimestampMs, setCurrentTimestampMs] = useState(Date.now());
+  const [currentTimestampMs, setCurrentTimestampMs] = useState(0);
   const [inputTs, setInputTs] = useState("");
   const [outputDate, setOutputDate] = useState("");
   

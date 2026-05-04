@@ -16,13 +16,13 @@ export function validatePerformanceLimit(text: string, title: string = "Input to
 /**
  * Utility to debounce heavily intensive UI tasks.
  */
-export function debounce<T extends (...args: any[]) => any>(
-  func: T,
+export function debounce<Args extends unknown[]>(
+  func: (...args: Args) => void,
   waitFor: number
 ) {
   let timeout: ReturnType<typeof setTimeout> | null = null;
 
-  return (...args: Parameters<T>): void => {
+  return (...args: Args): void => {
     if (timeout !== null) {
       clearTimeout(timeout);
     }

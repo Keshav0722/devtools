@@ -2,7 +2,10 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About Us | SDRK Dev Tools",
-  description: "Learn more about SDRK Dev Tools, the fastest AI-powered developer utilities platform.",
+  description: "Learn more about SDRK Dev Tools, a fast privacy-first developer utilities platform.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 export default function AboutPage() {

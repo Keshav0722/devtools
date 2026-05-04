@@ -1,6 +1,7 @@
 import { toolsList } from "@/lib/tools";
 import { ToolCard } from "@/components/tool-card";
 import SchemaMarkup from "./schema-markup";
+import { ToolSeoContent } from "./tool-seo-content";
 import { ShieldCheck } from "lucide-react";
 
 interface ToolLayoutProps {
@@ -40,6 +41,8 @@ export function ToolLayout({ children, title, description, toolId }: ToolLayoutP
       <div className="flex-1 min-h-[400px]">
         {children}
       </div>
+
+      {currentTool ? <ToolSeoContent tool={currentTool} /> : null}
 
       {relatedTools.length > 0 && (
         <div className="mt-16 pt-8 border-t border-border/50">

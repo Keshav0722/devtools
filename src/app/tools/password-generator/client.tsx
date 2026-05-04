@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -45,10 +45,6 @@ export default function PasswordGeneratorClient() {
     setPassword(newPassword);
   }, [length, useUppercase, useLowercase, useNumbers, useSymbols]);
 
-  useEffect(() => {
-    generatePassword();
-  }, [generatePassword]);
-
   const handleCopy = () => {
     if (!password) return;
     navigator.clipboard.writeText(password);
@@ -76,7 +72,7 @@ export default function PasswordGeneratorClient() {
                   min={4}
                   max={64}
                   step={1}
-                  onValueChange={(val: any) => setLength(Array.isArray(val) ? val[0] : val)}
+                  onValueChange={(value) => setLength(Array.isArray(value) ? value[0] : value)}
                 />
               </div>
 
@@ -98,6 +94,10 @@ export default function PasswordGeneratorClient() {
                   <Label htmlFor="symbols">Include Symbols (!@#$)</Label>
                 </div>
               </div>
+              <Button onClick={generatePassword} className="w-full gap-2">
+                <RefreshCw className="w-4 h-4" />
+                Generate password
+              </Button>
             </CardContent>
           </Card>
         </div>

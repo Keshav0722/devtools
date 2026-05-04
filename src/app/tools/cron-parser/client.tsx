@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,37 +9,43 @@ import * as cronParser from "cron-parser";
 
 export default function CronParserClient() {
   const [expression, setExpression] = useState("0 12 * * 1-5");
-  const [description, setDescription] = useState("");
-  const [nextRuns, setNextRuns] = useState<string[]>([]);
-  const [errorProps, setErrorProps] = useState<string | null>(null);
-
-  useEffect(() => {
+  const result = useMemo(() => {
     if (!expression.trim()) {
-      setDescription("Waiting for expression...");
-      setNextRuns([]);
-      setErrorProps(null);
-      return;
+      return {
+        description: "Waiting for expression...",
+        nextRuns: [] as string[],
+        error: null as string | null,
+      };
     }
 
     try {
-      // 1. Generate Human Readable format
       const humanReadable = cronstrue.toString(expression, { throwExceptionOnParseError: true });
-      setDescription(humanReadable);
-
-      // 2. Map Next 5 occurrences natively
-      const interval = (cronParser as any).parseExpression(expression);
-      const runs = [];
+      const parser = cronParser as typeof cronParser & {
+        parseExpression: (value: string) => {
+          next: () => { toDate: () => Date };
+        };
+      };
+      const interval = parser.parseExpression(expression);
+      const runs: string[] = [];
       for (let i = 0; i < 5; i++) {
         runs.push(interval.next().toDate().toLocaleString());
       }
-      setNextRuns(runs);
-      setErrorProps(null);
-    } catch (e: any) {
-      setErrorProps(`Invalid Cron expression. ${e.message}`);
-      setDescription("");
-      setNextRuns([]);
+      return {
+        description: humanReadable,
+        nextRuns: runs,
+        error: null,
+      };
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "Unable to parse expression";
+      return {
+        description: "",
+        nextRuns: [] as string[],
+        error: `Invalid Cron expression. ${message}`,
+      };
     }
   }, [expression]);
+
+  const { description, nextRuns, error } = result;
 
   return (
     <ToolLayout
@@ -69,12 +75,12 @@ export default function CronParserClient() {
                    <span>weekday</span>
                  </div>
                </div>
-               {errorProps && <p className="text-destructive font-medium text-center">{errorProps}</p>}
+               {error && <p className="text-destructive font-medium text-center">{error}</p>}
                {description && (
                  <div className="mt-8 text-center bg-primary/5 border border-primary/20 p-6 rounded-lg">
                    <h3 className="text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-widest">Translation</h3>
                    <p className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent leading-tight">
-                     "{description}"
+                     &quot;{description}&quot;
                    </p>
                  </div>
                )}

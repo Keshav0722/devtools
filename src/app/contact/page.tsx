@@ -1,8 +1,12 @@
 import { Metadata } from "next";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact Us | SDRK Dev Tools",
   description: "Get in touch with the SDRK Dev Tools team for support, feedback, or feature requests.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 export default function ContactPage() {
@@ -17,13 +21,13 @@ export default function ContactPage() {
         <h2 className="text-2xl font-semibold mb-4">Get in Touch</h2>
         <div className="space-y-4 text-muted-foreground">
           <p>
-            <strong>Email:</strong> <a href="mailto:support@sdrk-dev-tools.com" className="text-primary hover:underline">support@sdrk-dev-tools.com</a>
+            <strong>Email:</strong> <a href={`mailto:${siteConfig.email}`} className="text-primary hover:underline">{siteConfig.email}</a>
           </p>
           <p>
-            <strong>GitHub:</strong> <a href="https://github.com/Keshav0722/devtools" target="_blank" rel="noreferrer" className="text-primary hover:underline">github.com/Keshav0722/devtools</a>
+            <strong>GitHub:</strong> <a href={siteConfig.githubUrl} target="_blank" rel="noreferrer" className="text-primary hover:underline">github.com/Keshav0722/devtools</a>
           </p>
           <p>
-            <strong>Twitter:</strong> <a href="#" className="text-primary hover:underline">@sdrk_tools</a>
+            <strong>Twitter:</strong> <span className="text-muted-foreground">{siteConfig.twitterHandle}</span>
           </p>
         </div>
       </div>

@@ -3,6 +3,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Cookie Policy - SDRK Dev Tools",
   description: "Cookie Policy for SDRK Dev Tools.",
+  alternates: {
+    canonical: "/cookie-policy",
+  },
 };
 
 export default function CookiePolicyPage() {
@@ -10,7 +13,7 @@ export default function CookiePolicyPage() {
     <div className="max-w-4xl mx-auto px-4 py-16">
       <div className="prose prose-slate dark:prose-invert lg:prose-lg max-w-none">
         <h1>Cookie Policy</h1>
-        <p>Last updated: {new Date().toLocaleDateString()}</p>
+        <p>Last updated: May 4, 2026</p>
         
         <h2>What are cookies?</h2>
         <p>Cookies are small text files that are placed on your computer or mobile device when you browse websites. Our website uses minimal cookies to ensure you get the best experience.</p>

@@ -28,8 +28,9 @@ export default function YamlConverterClient() {
         const parsed = JSON.parse(value);
         setOutput(YAML.stringify(parsed));
       }
-    } catch (e: any) {
-      setOutput(`Error: Invalid ${currentMode === "yaml-to-json" ? "YAML" : "JSON"} formatting.\n\n${e.message}`);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "Unknown conversion error";
+      setOutput(`Error: Invalid ${currentMode === "yaml-to-json" ? "YAML" : "JSON"} formatting.\n\n${message}`);
     }
   };
 

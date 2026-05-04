@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Search, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -51,8 +51,9 @@ export default function IpLookupClient() {
       }
 
       setData(result);
-    } catch (err: any) {
-      setErrorProps(err.message || "Failed to fetch dataset. API may be rate limited.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to fetch dataset. API may be rate limited.";
+      setErrorProps(message);
     } finally {
       setLoading(false);
     }

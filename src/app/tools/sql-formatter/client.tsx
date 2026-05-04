@@ -27,8 +27,9 @@ export default function SqlFormatterClient() {
         logicalOperatorNewline: 'before'
       });
       setOutput(formattedSql);
-    } catch (e: any) {
-      setOutput(`Error: Invalid SQL Syntax.\n\n${e.message}`);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "Unknown formatting error";
+      setOutput(`Error: Invalid SQL Syntax.\n\n${message}`);
     }
   };
 

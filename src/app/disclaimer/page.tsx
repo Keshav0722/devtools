@@ -3,6 +3,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Disclaimer - SDRK Dev Tools",
   description: "Disclaimer for SDRK Dev Tools.",
+  alternates: {
+    canonical: "/disclaimer",
+  },
 };
 
 export default function DisclaimerPage() {
@@ -10,7 +13,7 @@ export default function DisclaimerPage() {
     <div className="max-w-4xl mx-auto px-4 py-16">
       <div className="prose prose-slate dark:prose-invert lg:prose-lg max-w-none">
         <h1>Disclaimer</h1>
-        <p>Last updated: {new Date().toLocaleDateString()}</p>
+        <p>Last updated: May 4, 2026</p>
         
         <h2>General Information</h2>
         <p>The information and tools provided by SDRK Dev Tools are for general informational and utility purposes only. All tools on the site are provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any tools or information on the site.</p>

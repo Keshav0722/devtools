@@ -26,8 +26,9 @@ export default function XmlFormatterClient() {
         lineSeparator: '\n'
       });
       setOutput(formattedXml);
-    } catch (e: any) {
-      setOutput(`Error: Invalid XML Syntax.\n\n${e.message}`);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "Unknown formatting error";
+      setOutput(`Error: Invalid XML Syntax.\n\n${message}`);
     }
   };
 

@@ -1,4 +1,6 @@
 import React from "react";
+import { absoluteUrl, siteConfig } from "@/lib/site";
+import { toolsList } from "@/lib/tools";
 
 interface SchemaMarkupProps {
   toolName: string;
@@ -7,8 +9,8 @@ interface SchemaMarkupProps {
 }
 
 export default function SchemaMarkup({ toolName, toolDescription, toolUrlSlug }: SchemaMarkupProps) {
-  const baseUrl = "https://sdrk-dev-tools.vercel.app";
-  const toolUrl = `${baseUrl}/tools/${toolUrlSlug}`;
+  const tool = toolsList.find((item) => item.id === toolUrlSlug);
+  const toolUrl = absoluteUrl(tool?.href ?? `/tools/${toolUrlSlug}`);
 
   // 1. WebApplication Schema
   const webAppSchema = {
@@ -24,8 +26,18 @@ export default function SchemaMarkup({ toolName, toolDescription, toolUrlSlug }:
     },
     "description": toolDescription,
     "url": toolUrl,
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": siteConfig.name,
+      "url": siteConfig.url
+    },
     "browserRequirements": "HTML5, JavaScript",
-    "featureList": `${toolName}, instant browser processing, offline-first, free tools, no login required`
+    "featureList": [
+      toolName,
+      "Instant browser processing",
+      "Local-first input handling",
+      "No login required"
+    ]
   };
 
   // 2. BreadcrumbList Schema
@@ -37,13 +49,13 @@ export default function SchemaMarkup({ toolName, toolDescription, toolUrlSlug }:
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": baseUrl
+        "item": siteConfig.url
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": `${baseUrl}/#tools`
+        "item": `${siteConfig.url}/#tools`
       },
       {
         "@type": "ListItem",
@@ -54,51 +66,17 @@ export default function SchemaMarkup({ toolName, toolDescription, toolUrlSlug }:
     ]
   };
 
-  // 3. FAQPage Schema (Generic fallbacks generated dynamically)
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": `Is the ${toolName} free to use?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `Yes, the ${toolName} provided by SDRK Dev Tools is 100% free to use. There are no logins, subscriptions, or hidden limits.`
-        }
-      },
-      {
-        "@type": "Question",
-        "name": `Is my data safe when using the ${toolName}?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `Absolutely. The ${toolName} operates entirely within your browser locally. No data is sent to or stored on our servers.`
-        }
-      },
-      {
-        "@type": "Question",
-        "name": `Do I need to install anything to use the ${toolName}?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `No installations are required. The ${toolName} is a browser-based utility that works instantly on any modern web browser across Windows, Mac, Linux, and mobile devices.`
-        }
-      }
-    ]
-  };
+  const stringify = (value: object) => JSON.stringify(value).replace(/</g, "\\u003c");
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+        dangerouslySetInnerHTML={{ __html: stringify(webAppSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: stringify(breadcrumbSchema) }}
       />
     </>
   );

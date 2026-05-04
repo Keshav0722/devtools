@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { validatePerformanceLimit } from "@/lib/performance";
@@ -68,8 +67,8 @@ export default function RegexTesterClient() {
         
         setMatches(newMatches);
         setErrorProps(null);
-      } catch (e: any) {
-        setErrorProps(e.message);
+      } catch (e: unknown) {
+        setErrorProps(e instanceof Error ? e.message : "Invalid regular expression");
         setMatches([]);
       }
     }, 200);

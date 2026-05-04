@@ -25,8 +25,9 @@ export default function URLEncodeClient() {
       } else {
         setOutput(decodeURIComponent(value));
       }
-    } catch (e: any) {
-      setOutput(`Error: Invalid URL Component.\n\n${e.message}`);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "Unknown decoding error";
+      setOutput(`Error: Invalid URL Component.\n\n${message}`);
     }
   };
 

@@ -14,7 +14,7 @@ export default function Footer() {
               <span className="font-bold tracking-tight">SDRK Dev Tools</span>
             </Link>
             <p className="text-sm text-muted-foreground w-full max-w-xs">
-              Fast, clean, offline-first dev tools. The ultimate AI-powered developer toolkit.
+              Fast, clean, local-first developer tools for everyday engineering work.
             </p>
           </div>
           <div>
@@ -48,7 +48,7 @@ export default function Footer() {
           <p>&copy; {new Date().getFullYear()} SDRK Dev Tools. All rights reserved.</p>
           <div className="flex gap-4">
             <span>Built for Speed</span>
-            <span>SEO Optimized</span>
+            <span>Privacy First</span>
           </div>
         </div>
       </div>

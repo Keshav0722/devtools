@@ -21,7 +21,7 @@ export default function JsonToCsvClient() {
     if (!validatePerformanceLimit(value)) return;
 
     try {
-      let data = JSON.parse(value);
+      let data = JSON.parse(value) as Array<Record<string, unknown>> | Record<string, unknown>;
       
       // Force array for uniform processing
       if (!Array.isArray(data)) {
@@ -54,8 +54,9 @@ export default function JsonToCsvClient() {
       }
       
       setOutput(csvRows.join("\n"));
-    } catch (e: any) {
-      setOutput(`Error: Invalid JSON.\n\n${e.message}`);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "Unknown parsing error";
+      setOutput(`Error: Invalid JSON.\n\n${message}`);
     }
   };
 

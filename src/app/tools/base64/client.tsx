@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { InputPanel, OutputPanel } from "@/components/tool-panels";
 import { validatePerformanceLimit } from "@/lib/performance";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 
 export default function Base64Client() {
@@ -26,8 +25,9 @@ export default function Base64Client() {
       } else {
         setOutput(atob(value));
       }
-    } catch (e: any) {
-      setOutput(`Error: Invalid Base64 or Text.\n\n${e.message}`);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "Unknown decoding error";
+      setOutput(`Error: Invalid Base64 or Text.\n\n${message}`);
     }
   };
 

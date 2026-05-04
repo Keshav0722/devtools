@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { validatePerformanceLimit } from "@/lib/performance";
 import { toast } from "sonner";
@@ -26,9 +26,9 @@ export default function HashGeneratorClient() {
     { name: "SHA-512", value: "", copied: false },
   ]);
 
-  const processHashes = (value: string) => {
+  const processHashes = useCallback((value: string) => {
     if (!value) {
-      setHashes(hashes.map(h => ({ ...h, value: "" })));
+      setHashes((currentHashes) => currentHashes.map((hash) => ({ ...hash, value: "" })));
       return;
     }
     
@@ -40,14 +40,14 @@ export default function HashGeneratorClient() {
       { name: "SHA-256", value: CryptoJS.SHA256(value).toString(), copied: false },
       { name: "SHA-512", value: CryptoJS.SHA512(value).toString(), copied: false },
     ]);
-  };
+  }, []);
 
   useEffect(() => {
     const handler = setTimeout(() => {
       processHashes(input);
     }, 150);
     return () => clearTimeout(handler);
-  }, [input]);
+  }, [input, processHashes]);
 
   const handleCopy = (index: number) => {
     const hash = hashes[index];

@@ -1,4 +1,4 @@
-import { Paintbrush, Code, Hash, Lock, Search, FileJson, Link, Database, Code2, TextSelect, FileText, AlignLeft, CalendarClock, Pipette, Fingerprint, FileSpreadsheet, Edit3, Key, FilePlus2, GitCompare, CodeSquare, Regex, Clock, Palette, MapPin, FileCode2 } from "lucide-react";
+import { Paintbrush, Hash, Lock, FileJson, Link, Database, Code2, CalendarClock, Fingerprint, FileSpreadsheet, Edit3, Key, FilePlus2, GitCompare, CodeSquare, Regex, Clock, Palette, MapPin, FileCode2, type LucideIcon } from "lucide-react";
 
 export type ToolCategory = "Data & Encoders" | "Generators" | "Web & Regex" | "Deep Tools";
 
@@ -7,7 +7,7 @@ export interface ToolItem {
   name: string;
   description: string;
   href: string;
-  icon: any; // Lucide icon
+  icon: LucideIcon;
   category: ToolCategory;
   keywords: string[];
 }

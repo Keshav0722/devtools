@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -15,18 +15,11 @@ export default function CssGradientClient() {
   const [colors, setColors] = useState(["#1f6bed", "#f4ff1e"]);
   const [angle, setAngle] = useState(135);
   const [type, setType] = useState<"linear" | "radial">("linear");
-  const [gradientCss, setGradientCss] = useState("");
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    let css = "";
-    if (type === "linear") {
-      css = `background: linear-gradient(${angle}deg, ${colors.join(", ")});`;
-    } else {
-      css = `background: radial-gradient(circle, ${colors.join(", ")});`;
-    }
-    setGradientCss(css);
-  }, [colors, angle, type]);
+  const gradientCss =
+    type === "linear"
+      ? `background: linear-gradient(${angle}deg, ${colors.join(", ")});`
+      : `background: radial-gradient(circle, ${colors.join(", ")});`;
 
   const addColor = () => {
     if (colors.length >= 6) {
@@ -98,7 +91,7 @@ export default function CssGradientClient() {
                     min={0} 
                     max={360} 
                     step={1} 
-                    onValueChange={(v: any) => setAngle(Array.isArray(v) ? v[0] : v)} 
+                    onValueChange={(value) => setAngle(Array.isArray(value) ? value[0] : value)} 
                   />
                 </div>
               )}

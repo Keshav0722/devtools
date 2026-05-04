@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -28,10 +28,6 @@ export default function UUIDGeneratorClient() {
     }
     setUuids(newUuids);
   }, [count, uppercase, removeHyphens]);
-
-  useEffect(() => {
-    generateUUIDs();
-  }, [generateUUIDs]);
 
   const handleCopy = () => {
     if (uuids.length === 0) return;
@@ -63,7 +59,7 @@ export default function UUIDGeneratorClient() {
                   min={1}
                   max={100}
                   step={1}
-                  onValueChange={(val: any) => setCount(Array.isArray(val) ? val[0] : val)}
+                  onValueChange={(value) => setCount(Array.isArray(value) ? value[0] : value)}
                 />
               </div>
 

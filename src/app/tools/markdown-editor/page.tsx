@@ -4,6 +4,9 @@ import ClientPage from "./client";
 export const metadata: Metadata = {
   title: "Markdown Editor & Live Preview - SDRK Dev Tools",
   description: "Write and preview Github-Flavored Markdown instantly in your browser. Fast, local, and privacy-focused.",
+  alternates: {
+    canonical: "/tools/markdown-editor",
+  },
 };
 
 export default function Page() {

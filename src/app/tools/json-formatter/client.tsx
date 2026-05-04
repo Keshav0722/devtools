@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { InputPanel, OutputPanel } from "@/components/tool-panels";
-import { validatePerformanceLimit, debounce } from "@/lib/performance";
+import { validatePerformanceLimit } from "@/lib/performance";
 import { toast } from "sonner";
 
 export default function JSONFormatterClient() {
@@ -21,8 +21,9 @@ export default function JSONFormatterClient() {
     try {
       const parsed = JSON.parse(value);
       setOutput(JSON.stringify(parsed, null, 2));
-    } catch (e: any) {
-      setOutput(`Error: Invalid JSON.\n\n${e.message}`);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "Unknown parsing error";
+      setOutput(`Error: Invalid JSON.\n\n${message}`);
     }
   };
 
@@ -39,7 +40,7 @@ export default function JSONFormatterClient() {
       const text = await navigator.clipboard.readText();
       setInput(text);
       toast.success("Pasted clipboard content");
-    } catch (err) {
+    } catch {
       toast.error("Failed to read clipboard");
     }
   };
