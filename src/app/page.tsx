@@ -1,7 +1,6 @@
 import { toolsList } from "@/lib/tools";
 import { ToolCard } from "@/components/tool-card";
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { HeroSearch } from "@/components/hero-search";
 
 export default function Home() {
   const categories = Array.from(new Set(toolsList.map(t => t.category)));
@@ -31,23 +30,7 @@ export default function Home() {
             SDRK Dev Tools provides ultra-fast, local-first developer utilities. Format JSON, convert Base64, generate Hashes, and more—instantly.
           </p>
 
-          <div className="w-full max-w-xl relative">
-            <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-muted-foreground" />
-            </div>
-            <Input 
-              className="w-full h-14 pl-10 pr-16 bg-background border-2 border-border/50 shadow-sm text-lg rounded-2xl focus-visible:ring-primary/50" 
-              placeholder="Search for a tool... (e.g., JSON formatter)"
-              readOnly
-            />
-            <div className="absolute inset-y-0 right-3 flex items-center">
-              <kbd className="hidden sm:inline-flex h-6 items-center gap-1 rounded border bg-muted px-2 font-mono text-[10px] font-medium text-muted-foreground">
-                <span className="text-xs">/</span>
-              </kbd>
-            </div>
-            {/* The input above is a dummy that just looks like the CommandPalette input, to prompt users to press Cmd+K.
-                In a real scenario, clicking it could open the command palette. */}
-          </div>
+          <HeroSearch />
         </div>
       </section>
 

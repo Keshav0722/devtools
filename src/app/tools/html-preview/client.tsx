@@ -70,7 +70,7 @@ export default function HtmlPreviewClient() {
       description="Write custom HTML, CSS, and basic JavaScript to instantly render in a sterile iframe sandbox."
       toolId="html-preview"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-[700px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-[700px]">
         {/* Editor Side */}
         <div className="h-full flex flex-col">
           <InputPanel

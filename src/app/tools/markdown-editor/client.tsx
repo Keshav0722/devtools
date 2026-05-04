@@ -41,7 +41,7 @@ export default function MarkdownEditorClient() {
       description="Write markdown text and preview the rendered output in real time. Supports GitHub Flavored Markdown (tables, strikethrough)."
       toolId="markdown-editor"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-[700px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-[700px]">
         {/* Editor Side */}
         <div className="h-full flex flex-col">
           <InputPanel
