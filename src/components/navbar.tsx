@@ -19,7 +19,7 @@ export default function Navbar() {
           </Link>
           <nav className="hidden md:flex gap-6">
             <Link
-              href="/tools"
+              href="/"
               className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               All Tools

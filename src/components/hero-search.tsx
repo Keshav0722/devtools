@@ -8,7 +8,7 @@ export function HeroSearch() {
     <div 
       className="w-full max-w-xl relative cursor-text group"
       onClick={() => {
-        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));
+        document.dispatchEvent(new CustomEvent('open-command-palette'));
       }}
     >
       <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
